@@ -2,17 +2,70 @@
 	<head>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
+		<link href="css/normalize.css" rel="stylesheet">
+		<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script>
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        
-      };
+
+		function buildList(arr) {
+		 var inboxHTML = '<ul>';
+		  for (var i = 0; i < arr.length; i += 1) {
+		    inboxHTML += '<li><input type="checkbox" value="selected" class="check">' ;
+		    inboxHTML +='<span class="sender"> ' + arr[i].sender + '</span>'
+		    inboxHTML +='<span class="subject"> ' + arr[i].subject + '</span>'
+		    inboxHTML +='<span class="date"> ' + arr[i].date + '</span>'
+		    inboxHTML +='</li>'
+		    inboxHTML += "<li class='mes'>" + arr[i].body + "</li>";
+		  }
+		  inboxHTML += '</ul>';
+		  return inboxHTML;
+		} //end buildlist
+
+		//generates ul list
+		htmlist = buildList(geemails);
+
+		//writes html inbox
+		$(".inbox").html(htmlist);
+
+		//hide message body
+		$(".mes").hide();
+
+		//checkbox message selected
+		$(".check").click( function () {
+			$(this).parent().toggleClass("selected");
+		});
+
+		//inbox count
+		var inboxCount = "(" + geemails.length + ")";
+		$(".inbox-count").text(inboxCount)
+
+      }; // end window.onload
+
     </script>
 	</head>
 	<body>
 		<div class="container" id="main">
-			Build Me!
+
+			<header><h1>Gee-mail</h1></header>
+
+			<div class="sidebar">
+				<ul class="no-bullet">
+					<li><button><a href="">COMPOSE</a></button></li>
+					<li><a href="">Inbox <span class="inbox-count"></span></a></li>
+					<li><a href="">Starred</a></li>
+					<li><a href="">Sent Mail</a></li>
+					<li><a href="">Drafts</a></li>
+					<li><a href="">Trash</a></li>
+				</ul>
+			</div>
+
+			<div class="inbox">
+
 		</div>
+
+
 	</body>
 </html>
+
