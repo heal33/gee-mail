@@ -9,46 +9,69 @@
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 
+        //builds list of emails
 		function buildList(arr) {
 		 var inboxHTML = '<ul>';
+		 
 		  for (var i = 0; i < arr.length; i += 1) {
-		    inboxHTML += '<li><input type="checkbox" value="selected" class="check">' ;
-		    inboxHTML +='<span class="sender"> ' + arr[i].sender + '</span>'
-		    inboxHTML +='<span class="subject"> ' + arr[i].subject + '</span>'
-		    inboxHTML +='<span class="date"> ' + arr[i].date + '</span>'
-		    inboxHTML +='</li>'
-		    inboxHTML += "<li class='mes'>" + arr[i].body + "</li>";
+		    inboxHTML += '<li class="message"><input type="checkbox" value="selected" class="check">' ;
+		    inboxHTML +='<span class="sender"> ' + arr[i].sender + '</span>';
+		    inboxHTML +='<span class="subject"> ' + arr[i].subject + '</span>';
+		    inboxHTML +='<span class="date"> ' + arr[i].date + '</span>';
+		    inboxHTML +='</li>';
 		  }
+
 		  inboxHTML += '</ul>';
 		  return inboxHTML;
+
 		} //end buildlist
 
+		//get inbox Count
+		function inboxCount() {
+			var inboxCount = "(" + geemails.length + ")";
+			$(".inbox-count").text(inboxCount);
+		}
+
 		//generates ul list
-		htmlist = buildList(geemails);
+			var htmlist = buildList(geemails);
 
-		//writes html inbox
-		$(".inbox").html(htmlist);
-
-		//hide message body
-		$(".mes").hide();
+		//writes list to inbox //displays inbox count
+			$(".inbox").html(htmlist);
+			inboxCount();
 
 		//checkbox message selected
 		$(".check").click( function () {
 			$(this).parent().toggleClass("selected");
 		});
 
-		//inbox count
-		var inboxCount = "(" + geemails.length + ")";
-		$(".inbox-count").text(inboxCount)
+		$(".message").click(function(){
+			$(".message").removeClass("active");
+			$(this).toggleClass("active");
+		});
+
+		//show body on click
+		$(".message").click(function() {
+			var index = $(".message").index( this );
+			var msgBody = '<h1>' + geemails[index].subject + '</h1>';
+			msgBody += '<h3>' + geemails[index].sender + '</h3>';
+			msgBody += '<h4>' + geemails[index].date + '</h4><hr>';
+			msgBody += geemails[index].body;
+
+
+			$(".inbox-body").html(msgBody);
+		})
 
       }; // end window.onload
 
     </script>
 	</head>
 	<body>
-		<div class="container" id="main">
 
-			<header><h1>Gee-mail</h1></header>
+		<header>
+			<h1>Geemail</h1>
+		</header>
+
+		<div class="container" id="main">	
 
 			<div class="sidebar">
 				<ul class="no-bullet">
@@ -61,9 +84,8 @@
 				</ul>
 			</div>
 
-			<div class="inbox">
-
-		</div>
+			<div class="inbox"></div>
+			<div class="inbox-body"></div>
 
 
 	</body>

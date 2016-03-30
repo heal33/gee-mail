@@ -1,82 +1,157 @@
+/*
+=============================
+		F O N T S
+============================= 
+*/
 body {
 	font-size: .8em;
-}
-
-ul {
-	padding: 0;
-	margin: 0;
 }
 
 li a {
 	text-decoration: none;
 }
 
+/*
+=============================
+		L A Y O U T 
+============================= 
+*/
+
+ul {
+	padding: 0;
+	margin: 0;
+}
+
 header {
 	width: 100%;
+	position: fixed;
+	height: 50px;
 }
 
 header h1 {
-	font-size: 1em;
-	padding-left: 20px;
+	margin: 0;
+	padding: 10px 20px;
 }
 
-.no-bullet {
-	list-style: none;
-}
 
 .container {
+	width: 100%;
 }
 
 .sidebar {
-	width: 200px;
+	width: 20%;
 	float: left;
 	box-sizing: border-box;
 	position: fixed;
+	padding: 15px;
+	top: 50px;
 }
 
 .sidebar li {
 	display: block;	
-		padding: 5px 5px 5px 20px;
+		padding: 5px 5px 5px 5px;
+}
+
+button {
+	width: 100%;
+	padding: 10px;
+	background-color: #337AB7;
+	border: 1px solid #204D74;
+	border-radius: 5px;
 }
 
 .inbox {
-	border-width: 1px 1px 0 1px;
-	border-style: solid;
-	border-color: #ccc;
-	width: 1000px;
+	width: 30%;
 	float: left;
-	margin-left: 200px;
+	margin-left: 20%;
 	box-sizing: border-box;
+	background-color: #F5F5F5;
+	margin-top: 50px;
 }
 
-
 .inbox li{
-	padding: 10px 10px;
+	padding: 20px 15px;
 	margin: 0;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #eee;
 	list-style: none;
 }
 
 .inbox span {
 	padding: 0 10px;
+	margin-left: 20px;
 }
 
-.sender {
-	display: inline-block;
-	width: 200px;
+.sender, .subject, .date {
+	display: block;
 }
 
-.subject {
-	display: inline-block;
-	width: 400px;
+
+.message {
+	cursor: pointer;
 }
 
-.date {
-	display: inline-block;
-	width: 300px;
-	text-align: right;
+.check {
+	float: left;
+}
+
+.inbox-body {
+	width: 50%;
+	float: left;
+	margin-top: 50px;
+	padding: 30px 60px;
+	box-sizing: border-box;
+}
+
+.inbox-body h4 {
+	color: #bbb;
+	font-weight: normal;
+}
+
+.inbox-body h1 {
+	font-weight: normal;
+}
+
+
+
+
+/*
+=============================
+		C O L O R S
+============================= 
+*/
+header {
+	background-color: #02A8DD;
+}
+
+header h1 {
+	color: white;	
+	text-shadow: 0px 0px 3px #333;
+}
+
+button a {
+	color: white;
+}
+
+.active {
+	background-color: #0070A5;
 }
 
 .selected {
-	background-color: #eee;
+	background-color: #ccc;
 }
+
+
+
+
+/*
+=============================
+		M I S C
+============================= 
+*/
+
+.no-bullet {
+	list-style: none;
+}
+
+
+
