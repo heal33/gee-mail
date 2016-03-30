@@ -45,11 +45,20 @@ header h1 {
 	position: fixed;
 	padding: 15px;
 	top: 50px;
+	cursor: pointer;
 }
 
 .sidebar li {
 	display: block;	
-		padding: 5px 5px 5px 5px;
+	padding: 5px 5px 5px 5px;
+}
+
+.sidebar li a {
+	display: block;
+}
+
+.sidebar li:hover {
+	background-color: #eee;
 }
 
 button {
@@ -110,7 +119,6 @@ button {
 .inbox-body h1 {
 	font-weight: normal;
 }
-
 
 
 

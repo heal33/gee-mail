@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<title>Geemail - Inbox</title>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
 		<link href="css/normalize.css" rel="stylesheet">
@@ -9,10 +10,11 @@
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 
+        //FUNCTIONS
+
         //builds list of emails
 		function buildList(arr) {
 		 var inboxHTML = '<ul>';
-		 
 		  for (var i = 0; i < arr.length; i += 1) {
 		    inboxHTML += '<li class="message"><input type="checkbox" value="selected" class="check">' ;
 		    inboxHTML +='<span class="sender"> ' + arr[i].sender + '</span>';
@@ -20,10 +22,8 @@
 		    inboxHTML +='<span class="date"> ' + arr[i].date + '</span>';
 		    inboxHTML +='</li>';
 		  }
-
 		  inboxHTML += '</ul>';
 		  return inboxHTML;
-
 		} //end buildlist
 
 		//get inbox Count
@@ -32,34 +32,56 @@
 			$(".inbox-count").text(inboxCount);
 		}
 
-		//generates ul list
-			var htmlist = buildList(geemails);
+		//updates every 2 seconds up to 13 new messages
+		function newMail() {
+			newMessage = getNewMessage();
+			geemails.unshift(newMessage);
+			updateMail = '<li class="message"><input type="checkbox" value="selected" class="check">' ;
+		    updateMail +='<span class="sender"> ' + geemails[0].sender + '</span>';
+		    updateMail +='<span class="subject"> ' + geemails[0].subject + '</span>';
+		    updateMail +='<span class="date"> ' + geemails[0].date + '</span>';
+		    updateMail +='</li>';
+		    return updateMail;
+		}
 
-		//writes list to inbox //displays inbox count
-			$(".inbox").html(htmlist);
+		function updateMail() {
+			$(".inbox").prepend(newMail());
 			inboxCount();
+		}
 
-		//checkbox message selected
+		//generates ul list //writes list to inbox //displays inbox count
+		var htmlist = buildList(geemails);
+		$(".inbox").html(htmlist);
+		inboxCount();
+
+		/******
+		W A R N I N G : Something is wrong with this code. Added emails cant be opened or selected. Line 61
+		******/
+		//updates emails every 5 seconds.
+		setInterval(updateMail, 5000);
+		
+		//adds background color when checkbox is checked. Can toggle.
 		$(".check").click( function () {
 			$(this).parent().toggleClass("selected");
 		});
-
+		
+		//adds an active background color to selected message when clicked. Also removes background color from previously selected message.
 		$(".message").click(function(){
 			$(".message").removeClass("active");
 			$(this).toggleClass("active");
-		});
-
-		//show body on click
-		$(".message").click(function() {
+			//Displays message body when message is clicked.
 			var index = $(".message").index( this );
 			var msgBody = '<h1>' + geemails[index].subject + '</h1>';
 			msgBody += '<h3>' + geemails[index].sender + '</h3>';
 			msgBody += '<h4>' + geemails[index].date + '</h4><hr>';
 			msgBody += geemails[index].body;
-
-
 			$(".inbox-body").html(msgBody);
-		})
+		});
+		
+		//test to see if all emails in list work when selected. Emails added with setInterval dont work :(
+		// $(".message").click(function(){
+		// alert("click works")
+		// })
 
       }; // end window.onload
 
@@ -76,10 +98,14 @@
 			<div class="sidebar">
 				<ul class="no-bullet">
 					<li><button><a href="">COMPOSE</a></button></li>
-					<li><a href="">Inbox <span class="inbox-count"></span></a></li>
+					<li><a href=""><strong>Inbox <span class="inbox-count"></span></strong></a></li>
 					<li><a href="">Starred</a></li>
+					<li><a href="">Important</a></li>
+					<li><a href="">Chats</a></li>
 					<li><a href="">Sent Mail</a></li>
-					<li><a href="">Drafts</a></li>
+					<li><a href=""><strong>Drafts (2)</strong></a></li>
+					<li><a href="">All Mail</a></li>
+					<li><a href=""><strong>Spam (53)</strong></a></li>
 					<li><a href="">Trash</a></li>
 				</ul>
 			</div>
