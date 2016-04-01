@@ -1,18 +1,17 @@
 <html>
 	<head>
-		<title>Geemail - Inbox</title>
+		<title>Geemail - Inbox | Heaven Lee</title>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
-		<link href="css/normalize.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.css" rel="stylesheet">
+		<link rel="icon" type="image/png" href="http://i.imgur.com/q4LqO4a.png">
 		<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script>
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 
-        //FUNCTIONS
-
-        //builds list of emails
+        //builds list of emails from array. This function creates a <ul></ul> that will hold each message in a <li></li>
 		function buildList(arr) {
 		 var inboxHTML = '<ul>';
 		  for (var i = 0; i < arr.length; i += 1) {
@@ -26,13 +25,7 @@
 		  return inboxHTML;
 		} //end buildlist
 
-		//get inbox Count
-		function inboxCount() {
-			var inboxCount = "(" + geemails.length + ")";
-			$(".inbox-count").text(inboxCount);
-		}
-
-		//updates every 2 seconds up to 13 new messages
+		//gets new message, adds message to the beginning of geemails array, and builds it into an <li>
 		function newMail() {
 			newMessage = getNewMessage();
 			geemails.unshift(newMessage);
@@ -44,32 +37,50 @@
 		    return updateMail;
 		}
 
-		function updateMail() {
-			$(".inbox").prepend(newMail());
+		//function to write the inbox count to page
+		function inboxCount() {
+			var inboxCount = "(" + geemails.length + ")";
+			$(".inbox-count").text(inboxCount);
+		}
+
+		//function to add new mail to the beggining of inbox
+		function getMail() {
+			$(".inbox ul").prepend(newMail());
 			inboxCount();
 		}
 
-		//generates ul list //writes list to inbox //displays inbox count
-		var htmlist = buildList(geemails);
-		$(".inbox").html(htmlist);
-		inboxCount();
+		//function to update mail only if mail count is below x
+		function maxMail(){
+			if( geemails.length < 100 ) {
+				getMail();
+			} 
+			else {
+				return;
+			}
+		}
 
-		/******
-		W A R N I N G : Something is wrong with this code. Added emails cant be opened or selected. Line 61
-		******/
-		//updates emails every 5 seconds.
-		setInterval(updateMail, 5000);
+		//buildList(geemails) builds a <ul> for the geemails array then stores that list into a variable (htmlist)
+		var htmlist = buildList(geemails);
+
+		//writes list to inbox div
+		$(".inbox").html(htmlist);
+
+		 //displays inbox count
+		inboxCount();
 		
-		//adds background color when checkbox is checked. Can toggle.
-		$(".check").click( function () {
+		//Issues:
+			//1. .click() doesnt work on prepended messages ***FIXED! - must use .on() instead on .click()
+
+		//adds background color to selected message when checkbox is checked. Can toggle. 
+		$("body").on("click", ".check", function(){
 			$(this).parent().toggleClass("selected");
 		});
 		
 		//adds an active background color to selected message when clicked. Also removes background color from previously selected message.
-		$(".message").click(function(){
+		$("body").on( "click", ".message", function(){
 			$(".message").removeClass("active");
 			$(this).toggleClass("active");
-			//Displays message body when message is clicked.
+			//Displays the message body when message is clicked. Get the message from the array using its index number.
 			var index = $(".message").index( this );
 			var msgBody = '<h1>' + geemails[index].subject + '</h1>';
 			msgBody += '<h3>' + geemails[index].sender + '</h3>';
@@ -77,12 +88,21 @@
 			msgBody += geemails[index].body;
 			$(".inbox-body").html(msgBody);
 		});
-		
-		//test to see if all emails in list work when selected. Emails added with setInterval dont work :(
-		// $(".message").click(function(){
-		// alert("click works")
-		// })
 
+		//Turns on setInterval and allows incoming mail. If off, incoming mail stops. 
+		$('.get-mail').on("click", function(){
+  			$('.led-inner').toggleClass('led-on');
+
+  			//if true, the setInterval function will run and allow incoming mail. If not, the clearInteral function is executed and stops all incoming mail.
+  			if ($('.led-inner').hasClass('led-on')){
+  				$(".led-inner").text("Incoming Mail ON");
+  				intervalID = setInterval(maxMail, 2000); //gets mail every 2 seconds
+			} else {
+				$(".led-inner").text("Incoming Mail OFF");
+    			window.clearInterval(intervalID);
+			}
+		});
+		
       }; // end window.onload
 
     </script>
@@ -90,7 +110,8 @@
 	<body>
 
 		<header>
-			<h1>Geemail</h1>
+			<h1>Geemail</h1><span class="user"></span>
+			<div class="get-mail"><div class="led-inner">Incoming Mail OFF</div>
 		</header>
 
 		<div class="container" id="main">	
@@ -108,11 +129,11 @@
 					<li><a href=""><strong>Spam (53)</strong></a></li>
 					<li><a href="">Trash</a></li>
 				</ul>
-			</div>
+			</div><!--/.sidebar-->
 
 			<div class="inbox"></div>
 			<div class="inbox-body"></div>
-
+		</div> <!--/.container-->
 
 	</body>
 </html>
