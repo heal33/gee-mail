@@ -15,6 +15,18 @@ li a {
 	font-size: .8em;
 }
 
+header h1 {
+	font-family: arial, sans-serif
+}
+
+header h1,
+.inbox-body h4,
+.inbox-body h1 {
+	font-weight: normal;
+}
+
+
+
 /*
 =============================
 		L A Y O U T 
@@ -38,7 +50,6 @@ header h1 {
 	float: left;
 }
 
-
 .container {
 	width: 100%;
 }
@@ -53,7 +64,6 @@ header h1 {
 }
 
 .sidebar li {
-	display: block;	
 	padding: 5px 5px 5px 5px;
 }
 
@@ -61,14 +71,9 @@ header h1 {
 	display: block;
 }
 
-.sidebar li:hover {
-	background-color: #eee;
-}
-
 button {
 	width: 100%;
 	padding: 10px;
-	background-color: #337AB7;
 	border: 1px solid #204D74;
 	border-radius: 5px;
 }
@@ -78,7 +83,6 @@ button {
 	float: left;
 	margin-left: 20%;
 	box-sizing: border-box;
-	background-color: #F5F5F5;
 	margin-top: 50px;
 }
 
@@ -94,7 +98,9 @@ button {
 	margin-left: 20px;
 }
 
-.sender, .subject, .date {
+.sender, 
+.subject, 
+.date {
 	display: block;
 }
 
@@ -127,13 +133,19 @@ button {
 	position: fixed;
 }
 
-.inbox-body h4 {
-	color: #bbb;
-	font-weight: normal;
+.get-mail{
+	cursor: pointer;
+	float: right;
+	margin: 0;
+	padding: 10px 20px;
+	transition: background-color .1s ease;
+	margin: 5px;
 }
 
-.inbox-body h1 {
-	font-weight: normal;
+.led-inner {
+	padding: 4px 6px;
+	width: 100px;
+	border-radius: 20px;
 }
 
 #helper-wrap {
@@ -142,14 +154,12 @@ button {
 }
 
 #helper {
-	background-color: #343434;
-	color: white;
 	padding: 10px;
 	float: left;
 	border-radius: 3px;
 }
 
-.right-tri{
+.right-tri {
 	width: 0; 
 	height: 0; 
 	border-top: 8px solid transparent;
@@ -175,6 +185,10 @@ header h1 {
 	text-shadow: 0px 0px 3px #333;
 }
 
+button {
+	background-color: #337AB7;
+}
+
 button a {
 	color: white;
 }
@@ -183,10 +197,38 @@ button a {
 	background-color: #0070A5;
 }
 
+.inbox {
+	background-color: #F5F5F5;
+}
+
+.inbox-body h4 {
+	color: #bbb;
+}
+
 .selected {
 	background-color: #ccc;
 }
 
+.get-mail {
+	background-color: rgba(0,0,0,.2);	
+}
+
+.get-mail:hover {
+	background-color: rgba(0,0,0,.3);
+}
+
+#helper {
+	background-color: #343434;
+	color: white;
+}
+
+.led-inner {
+	color: #fff;	
+}
+
+.sidebar li:hover {
+	background-color: #eee;
+}
 
 
 
@@ -200,35 +242,12 @@ button a {
 	list-style: none;
 }
 
-/*
-=============================
-		M A I L   B U T T O N 
-============================= 
-*/
-
-.get-mail{
-	cursor: pointer;
-	float: right;
-	margin: 0;
-	padding: 10px 20px;
-	background-color: rgba(0,0,0,.2);
-	transition: background-color .1s ease;
-	margin: 5px;
-}
-
-.get-mail:hover {
-	background-color: rgba(0,0,0,.3);
-}
-
-.led-inner {
-	padding: 4px 6px;
-	color: #fff;
-	width: 100px;
-	border-radius: 20px;
-}
-
 .led-on {
 }
+
+
+
+
 
 
 
