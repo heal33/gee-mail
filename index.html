@@ -69,7 +69,7 @@
 		inboxCount();
 		
 		//Issues:
-			//1. .click() doesnt work on prepended messages ***FIXED! - must use .on() instead on .click()
+			//1. .click() doesnt work on prepended messages ***FIXED! - must use .on() instead of .click()
 
 		//adds background color to selected message when checkbox is checked. Can toggle. 
 		$("body").on("click", ".check", function(){
@@ -91,14 +91,17 @@
 
 		//Turns on setInterval and allows incoming mail. If off, incoming mail stops. 
 		$('.get-mail').on("click", function(){
+			$("#helper-wrap").fadeOut(function(){ //removes tooltip
+				$("#helper-wrap").remove(); 
+			});
   			$('.led-inner').toggleClass('led-on');
 
   			//if true, the setInterval function will run and allow incoming mail. If not, the clearInteral function is executed and stops all incoming mail.
   			if ($('.led-inner').hasClass('led-on')){
-  				$(".led-inner").text("Incoming Mail ON");
+  				$(".led-inner").text("Incoming Mail is ON");
   				intervalID = setInterval(maxMail, 2000); //gets mail every 2 seconds
 			} else {
-				$(".led-inner").text("Incoming Mail OFF");
+				$(".led-inner").text("Incoming Mail is OFF");
     			window.clearInterval(intervalID);
 			}
 		});
@@ -110,8 +113,12 @@
 	<body>
 
 		<header>
-			<h1>Geemail</h1><span class="user"></span>
-			<div class="get-mail"><div class="led-inner">Incoming Mail OFF</div>
+			<h1>Geemail</h1>
+			
+			<div class="get-mail"><div class="led-inner">Incoming Mail is OFF</div></div>
+
+			<div id="helper-wrap"><div id="helper">Click to receive new mail.</div><div class="right-tri"></div></div>
+
 		</header>
 
 		<div class="container" id="main">	

@@ -12,7 +12,7 @@ li a {
 }
 
 .get-mail {
-	font-size: .7em;
+	font-size: .8em;
 }
 
 /*
@@ -136,6 +136,29 @@ button {
 	font-weight: normal;
 }
 
+#helper-wrap {
+	float: right;
+	margin-top:8px;
+}
+
+#helper {
+	background-color: #343434;
+	color: white;
+	padding: 10px;
+	float: left;
+	border-radius: 3px;
+}
+
+.right-tri{
+	width: 0; 
+	height: 0; 
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+	border-left: 8px solid #343434;
+	float: right;
+	margin-top: 9px;
+}
+
 
 
 /*
@@ -187,22 +210,24 @@ button a {
 	cursor: pointer;
 	float: right;
 	margin: 0;
-	padding: 15px 20px;
+	padding: 10px 20px;
+	background-color: rgba(0,0,0,.2);
+	transition: background-color .1s ease;
+	margin: 5px;
+}
+
+.get-mail:hover {
+	background-color: rgba(0,0,0,.3);
 }
 
 .led-inner {
 	padding: 4px 6px;
-	border: 2px solid maroon;
-	box-shadow: 0 0 4px black;
-	color: red;
-	background-color: #444;
-	width: 80px;
+	color: #fff;
+	width: 100px;
 	border-radius: 20px;
 }
 
 .led-on {
-	border: 2px solid green;
-	color: limegreen;
 }
 
 
